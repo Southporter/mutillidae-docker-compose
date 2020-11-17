@@ -1,0 +1,29 @@
+version: '3'
+services: 
+  apache:
+    build:
+      context: .
+    environment:
+      DB_HOST: mysql
+    ports:
+      - 80:80
+    links:
+      - mysql
+
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - mysql:/var/lib/mysql
+    ports:
+      - 3306:3306
+    environment:
+      TZ: 'America/Chicago'
+      MYSQL_ALLOW_EMPTY_PASSWORD: "no"
+      MYSQL_ROOT_PASSWORD: 'mutillidae'
+      MYSQL_USER: 'mutillidae'
+      MYSQL_PASSWORD: 'testpass'
+      MYSQL_DATABASE: 'mutillidae'
+
+
+volumes:
+  mysql:
